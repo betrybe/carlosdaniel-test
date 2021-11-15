@@ -14,8 +14,6 @@ const Form = (props) => {
     exchangeRates: [],
   });
 
-  // console.log(props.wallet);
-
   const handleChange = (event) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
@@ -24,7 +22,6 @@ const Form = (props) => {
   const FormSubmit = (event) => {
     event.preventDefault();
 
-    // console.log(props.wallet.expenses.length);
     setFormData((state) => ({ ...state, id: props.wallet.expenses.length + 1 }));
 
     props.AddNewExpense(formData);
