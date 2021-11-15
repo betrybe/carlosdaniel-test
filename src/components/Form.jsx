@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AddNewExpense } from '../actions/index';
 
 const Form = (props) => {
   const [formData, setFormData] = useState({
+    id: 0,
     value: 0,
     description: '',
     currency: '',
-    payment_method: '',
+    method: '',
     tag: '',
+    exchangeRates: [],
   });
 
-  useEffect(() => {
-    // console.log(formData);
-  }, [formData]);
-
-  console.log(props);
+  // console.log(props.wallet);
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -25,6 +23,10 @@ const Form = (props) => {
 
   const FormSubmit = (event) => {
     event.preventDefault();
+
+    // console.log(props.wallet.expenses.length);
+    setFormData((state) => ({ ...state, id: props.wallet.expenses.length + 1 }));
+
     props.AddNewExpense(formData);
   };
 
@@ -58,15 +60,9 @@ const Form = (props) => {
           onChange={ handleChange }
         >
           {
-            props.moedas
-        && props.moedas.map((moeda, index) => (
-          <option
-            key={ `${moeda}-${index}` }
-            value={ moeda }
-          >
-            {moeda}
-          </option>
-        ))
+            Object.entries(props.wallet.currencies).map((moeda, index) => (
+              <option key={ index } value={ moeda[0] }>{moeda[0]}</option>
+            ))
           }
         </select>
       </label>
@@ -74,8 +70,8 @@ const Form = (props) => {
       <label htmlFor="PaymentMethod">
         Método de pagamento:
         <select
-          id="payment_method"
-          value={ formData.payment_method }
+          id="method"
+          value={ formData.method }
           onChange={ handleChange }
         >
           <option value="Dinheiro">Dinheiro</option>

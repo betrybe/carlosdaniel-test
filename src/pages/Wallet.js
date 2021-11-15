@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Form from '../components/Form';
+import { searchCurrencies } from '../actions';
 
 const Wallet = (props) => {
-  const [moedas, setMoedas] = useState([]);
-  // console.log(props.wallet);
+  console.log(props);
 
   useEffect(() => {
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((res) => res.json())
-      .then((res) => {
-        delete res.USDT;
-        delete res.DOGE;
-
-        const parsedMoedas = Object.entries(res).map(
-          ([key]) => (key),
-        );
-        // console.log(parsedMoedas);
-        setMoedas(parsedMoedas);
-      });
+    props.searchCurrencies();
   }, []);
 
   return (
@@ -34,7 +24,7 @@ const Wallet = (props) => {
 
       </header>
       <main>
-        <Form moedas={ moedas } />
+        <Form />
         <table>
           <thead>
             <tr>
@@ -73,4 +63,8 @@ const mapStateToProps = (state) => ({
   wallet: state.wallet,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+  { searchCurrencies }, dispatch,
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
