@@ -6,9 +6,11 @@
 
 import { combineReducers } from 'redux';
 import user from './user';
+import wallet from './wallet';
 
 const rootReducer = combineReducers({
-  users: user,
+  user,
+  wallet,
 });
 
 export default rootReducer;

@@ -4,18 +4,13 @@ import { bindActionCreators } from 'redux';
 import './Login.css';
 
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 import { changeUserEmail, changeUserPassword } from '../actions/index';
-
-// class Login extends React.Component {
-//   render() {
-//     return <div>Login</div>;
-//   }
-// }
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [buttonDisabled, setbuttonDisabled] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const history = useHistory();
 
@@ -29,14 +24,18 @@ const Login = (props) => {
   };
 
   useEffect(() => {
-    const userOK = (userEmail, usersenha) => {
+    const HasInEmail = -1;
+    const minLength = 6;
+
+    const userOK = (userEmail, userSenha) => {
       if (userEmail === ''
-      || userEmail.indexOf('@') === -1
-      || userEmail.indexOf('.') === -1
+      || userEmail.indexOf('@') === HasInEmail
+      || userEmail.indexOf('.') === HasInEmail
+      || userSenha.length < minLength
       ) {
-        return console.log(false);
+        return setButtonDisabled(true);
       }
-      return console.log(true);
+      return setButtonDisabled(false);
     };
     userOK(email, senha);
   }, [email, senha]);
@@ -84,5 +83,10 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   changeUserEmail,
   changeUserPassword,
 }, dispatch);
+
+Login.propTypes = {
+  changeUserEmail: PropTypes.func.isRequired,
+  changeUserPassword: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
