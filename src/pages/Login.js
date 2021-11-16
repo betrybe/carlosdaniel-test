@@ -41,8 +41,8 @@ const Login = (props) => {
   }, [email, senha]);
 
   return (
-    <main>
-      <div className="container">
+    <main className="container">
+      <div className="content">
         <h1>Trybe</h1>
 
         <form onSubmit={ handleSubmit }>

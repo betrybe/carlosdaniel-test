@@ -1,11 +1,11 @@
-main {
+.container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-main .container {
+.container .content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,21 +15,21 @@ main .container {
   border-radius: 8px;
 }
 
-main .container h1 {
+.container .content h1 {
   font-size: 56px;
   text-transform: uppercase;
   color: #03A86C;
   margin-bottom:50px;
 }
 
-main .container form {
+.container .content form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-main .container form input,
-main .container form button
+.container .content form input,
+.container .content form button
  {
   width: 350px;
   padding: 12px;
@@ -37,18 +37,18 @@ main .container form button
   border-radius: 8px;
 }
 
-main .container form input {
+.container .content form input {
   border: 1px solid #29292e;
   font-size: 16px;
   font-weight: 300;
   padding: 16px;
 }
-main .container form input:focus {
+.container .content form input:focus {
   outline: 2px solid #03A86C;
   border: none;
 }
 
-main .container form button {
+.container .content form button {
   color: #fff;
   border: none;
   font-size: 20px;
@@ -59,11 +59,11 @@ main .container form button {
   transition: .2s ease-in-out;
 }
 
-main .container form button:not(:disabled):hover {
+.container .content form button:not(:disabled):hover {
   background-color: #218738;
 }
 
-main .container form button:disabled {
+.container .content form button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
