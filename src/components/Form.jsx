@@ -20,17 +20,20 @@ const Form = ({ editable, setEditable }) => {
     exchangeRates: [],
   };
 
-  const [form, setForm] = useState(editable
-    ? wallet.expenses[wallet.expenseIdEdit]
-    : initialForm);
+  const [form, setForm] = useState(initialForm);
 
   useEffect(() => {
     if (editable) {
-      setForm(wallet.expenses[wallet.expenseIdEdit]);
+      wallet.expenses.map((expense, index) => {
+        if (expense.id === wallet.expenseIdEdit) {
+          return setForm(wallet.expenses[index]);
+        }
+        return '';
+      });
     } else {
       setForm(initialForm);
     }
-  }, [editable, wallet.expenseIdEdit]);
+  }, [editable, wallet.expenseIdEdit, wallet.expenses]);
 
   const handleForm = (event) => {
     const { id, value } = event.target;
@@ -54,7 +57,9 @@ const Form = ({ editable, setEditable }) => {
   const handleButton = () => {
     if (editable === true) {
       return (
-        <button type="submit"> Editar despesa </button>
+        <button type="submit">
+          Editar despesa
+        </button>
       );
     }
     return (
@@ -97,7 +102,6 @@ const Form = ({ editable, setEditable }) => {
           onChange={ handleForm }
           data-testid="currency-input"
         >
-          <option value="">Selecione uma Moeda</option>
           {
             Object.entries(wallet.currencies).map((moeda, index) => (
               <option key={ index } value={ moeda[0] }>{moeda[0]}</option>

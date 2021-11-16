@@ -59,9 +59,7 @@ export const searchCurrencies = () => (dispatch) => {
 
 export const removeExpense = (id) => (dispatch, getState) => {
   const state = getState();
-  console.log(state.wallet.expenses);
   const newArray = state.wallet.expenses.filter((expense) => expense.id !== id);
-  console.log(newArray);
 
   dispatch({
     type: 'CHANGE_EXPENSES',
