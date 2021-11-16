@@ -2,15 +2,8 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  form: {
-    id: null,
-    value: 0,
-    description: '',
-    currency: '',
-    method: '',
-    tag: '',
-    exchangeRates: [],
-  },
+  currentId: 0,
+  expenseIdEdit: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -18,6 +11,10 @@ const wallet = (state = INITIAL_STATE, action) => {
   case 'CLEAR_FORM':
     return {
       ...state, form: INITIAL_STATE.form,
+    };
+  case 'INCREMENT_ID':
+    return {
+      ...state, currentId: action.payload + 1,
     };
   case 'CHANGE_FORM':
     return {
@@ -31,17 +28,13 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state, currencies: action.payload,
     };
-  case 'REMOVE_EXPENSE':
+  case 'CHANGE_EXPENSES':
     return {
       ...state, expenses: action.payload,
     };
   case 'EDIT_EXPENSE':
     return {
-      ...state, form: action.payload,
-    };
-  case 'SAVE_EDITED_EXPENSE':
-    return {
-      ...state, expenses: action.payload,
+      ...state, expenseIdEdit: action.payload,
     };
   default:
     return state;

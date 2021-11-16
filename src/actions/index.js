@@ -11,6 +11,13 @@ export const changeUserPassword = (description) => ({
 });
 
 // Wallet Actions
+export const getIdExpenses = () => (dispatch, getState) => {
+  const state = getState();
+  dispatch({
+    type: 'INCREMENT_ID',
+    payload: state.wallet.currentId,
+  });
+};
 
 export const clearForm = () => (dispatch) => {
   dispatch({
@@ -18,18 +25,7 @@ export const clearForm = () => (dispatch) => {
   });
 };
 
-export const handleForm = (event) => (dispatch, getState) => {
-  const { id, value } = event.target;
-  const state = getState();
-  const newState = { ...state.wallet.form, [id]: value };
-
-  dispatch({
-    type: 'CHANGE_FORM',
-    payload: newState,
-  });
-};
-
-export const AddNewExpense = () => (dispatch, getState) => {
+export const AddNewExpense = (form) => (dispatch, getState) => {
   const state = getState();
 
   fetch('https://economia.awesomeapi.com.br/json/all')
@@ -38,13 +34,13 @@ export const AddNewExpense = () => (dispatch, getState) => {
       delete res.USDT;
       delete res.DOGE;
       const newState = {
-        ...state.wallet.form, id: state.wallet.expenses.length, exchangeRates: res,
+        ...form, id: state.wallet.currentId, exchangeRates: res,
       };
       dispatch({
         type: 'ADD_NEW_EXPENSE',
         payload: newState,
       });
-    }).then(() => dispatch(clearForm()));
+    }).then(() => dispatch(getIdExpenses()));
 };
 
 export const searchCurrencies = () => (dispatch) => {
@@ -68,30 +64,29 @@ export const removeExpense = (id) => (dispatch, getState) => {
   console.log(newArray);
 
   dispatch({
-    type: 'REMOVE_EXPENSE',
+    type: 'CHANGE_EXPENSES',
     payload: newArray,
   });
 };
 
-export const editExpense = (id) => (dispatch, getState) => {
-  const state = getState();
-  const newEspense = { ...state.wallet.expenses[id] };
-
+export const editExpense = (id) => (dispatch) => {
   dispatch({
     type: 'EDIT_EXPENSE',
-    payload: newEspense,
+    payload: id,
   });
 };
 
-export const saveEditExpense = () => (dispatch, getState) => {
+export const saveEditExpense = (form) => (dispatch, getState) => {
   const state = getState();
-  const { form, expenses } = state.wallet;
+  const { expenses, expenseIdEdit } = state.wallet;
 
-  expenses[form.id] = form;
-
+  for (let i = 0; i < expenses.length; i += 1) {
+    if (expenses[i].id === expenseIdEdit) {
+      expenses[i] = form;
+    }
+  }
   dispatch({
-    type: 'SAVE_EDITED_EXPENSE',
+    type: 'CHANGE_EXPENSES',
     payload: expenses,
   });
-  dispatch(clearForm());
 };

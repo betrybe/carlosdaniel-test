@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import './Login.css';
 
 import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
 import { changeUserEmail, changeUserPassword } from '../actions/index';
 
-const Login = (props) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    props.changeUserEmail(email);
-    props.changeUserPassword(senha);
+    dispatch(changeUserEmail(email));
+    dispatch(changeUserPassword(senha));
 
     history.push('/carteira');
   };
@@ -76,18 +76,4 @@ const Login = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  user: state.users,
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  changeUserEmail,
-  changeUserPassword,
-}, dispatch);
-
-Login.propTypes = {
-  changeUserEmail: PropTypes.func.isRequired,
-  changeUserPassword: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

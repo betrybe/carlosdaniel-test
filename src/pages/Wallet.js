@@ -1,70 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-import { handleForm, searchCurrencies } from '../actions';
+import { useDispatch } from 'react-redux';
 import Form from '../components/Form';
-import WalletTable from '../components/WalletTable';
+import Header from '../components/Header';
+import Table from '../components/Table';
+import { searchCurrencies } from '../actions';
 
-import './Wallet.css';
-import FormEdit from '../components/FormEdit';
-
-const Wallet = ({ wallet, user, searchCurrency }) => {
+const Wallet = () => {
   const [editable, setEditable] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    searchCurrency();
-  }, []);
-
-  const totalExpenses = () => {
-    let total = 0;
-
-    wallet.expenses.map((expense) => {
-      total += expense.exchangeRates[expense.currency].ask * expense.value;
-      return total;
-    });
-
-    return total.toFixed(2);
-  };
+    dispatch(searchCurrencies());
+  }, [dispatch]);
 
   return (
     <>
-      <header>
-        <h1>Trybe</h1>
-
-        <div className="user-info">
-          <p>
-            Email:&nbsp;
-            <span data-testid="email-field">
-              {user.email}
-            </span>
-          </p>
-
-          <p>
-            Despesa Total: R$&nbsp;
-            <span data-testid="total-field">
-              {totalExpenses()}
-            </span>
-          </p>
-          <p data-testid="header-currency-field">BRL</p>
-        </div>
-      </header>
-
+      <Header />
       <main>
-        <Form editable={ [editable, setEditable] } />
-        <WalletTable editable={ [editable, setEditable] } />
+        <Form editable={ editable } setEditable={ setEditable } />
+        <Table setEditable={ setEditable } />
       </main>
     </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-  wallet: state.wallet,
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators(
-  { searchCurrency: searchCurrencies }, dispatch,
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default Wallet;

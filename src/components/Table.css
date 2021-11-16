@@ -54,7 +54,7 @@ table tbody tr td .remove {
   transition: .2s ease-in-out;
 }
 
-table tbody tr td .edit {
+table tbody tr td .edit{
  background-color: #FCBF06;
  color: #29292e;
 }
