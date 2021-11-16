@@ -22,14 +22,14 @@
   margin-bottom:50px;
 }
 
-.container .content form {
+.container .content > .form-login {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.container .content form input,
-.container .content form button
+.container .content > .form-login input,
+.container .content > .form-login button
  {
   width: 350px;
   padding: 12px;
@@ -37,18 +37,18 @@
   border-radius: 8px;
 }
 
-.container .content form input {
+.container .content > .form-login input {
   border: 1px solid #29292e;
   font-size: 16px;
   font-weight: 300;
   padding: 16px;
 }
-.container .content form input:focus {
+.container .content > .form-login input:focus {
   outline: 2px solid #03A86C;
   border: none;
 }
 
-.container .content form button {
+.container .content > .form-login button {
   color: #fff;
   border: none;
   font-size: 20px;
@@ -59,11 +59,11 @@
   transition: .2s ease-in-out;
 }
 
-.container .content form button:not(:disabled):hover {
+.container .content > .form-login button:not(:disabled):hover {
   background-color: #218738;
 }
 
-.container .content form button:disabled {
+.container .content > .form-login button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

@@ -11,6 +11,13 @@ export const changeUserPassword = (description) => ({
 });
 
 // Wallet Actions
+
+export const clearForm = () => (dispatch) => {
+  dispatch({
+    type: 'CLEAR_FORM',
+  });
+};
+
 export const handleForm = (event) => (dispatch, getState) => {
   const { id, value } = event.target;
   const state = getState();
@@ -37,7 +44,7 @@ export const AddNewExpense = () => (dispatch, getState) => {
         type: 'ADD_NEW_EXPENSE',
         payload: newState,
       });
-    });
+    }).then(() => dispatch(clearForm()));
 };
 
 export const searchCurrencies = () => (dispatch) => {
@@ -68,8 +75,7 @@ export const removeExpense = (id) => (dispatch, getState) => {
 
 export const editExpense = (id) => (dispatch, getState) => {
   const state = getState();
-
-  const newEspense = { ...state.wallet.expenses[id], isEditable: true };
+  const newEspense = { ...state.wallet.expenses[id] };
 
   dispatch({
     type: 'EDIT_EXPENSE',
@@ -87,4 +93,5 @@ export const saveEditExpense = () => (dispatch, getState) => {
     type: 'SAVE_EDITED_EXPENSE',
     payload: expenses,
   });
+  dispatch(clearForm());
 };

@@ -24,20 +24,20 @@ const Login = (props) => {
   };
 
   useEffect(() => {
-    const HasInEmail = -1;
+    const dontHasInEmail = -1;
     const minLength = 6;
 
-    const userOK = (userEmail, userSenha) => {
+    const userCanLogin = (userEmail, userSenha) => {
       if (userEmail === ''
-      || userEmail.indexOf('@') === HasInEmail
-      || userEmail.indexOf('.') === HasInEmail
+      || userEmail.indexOf('@') === dontHasInEmail
+      || userEmail.indexOf('.com') === dontHasInEmail
       || userSenha.length < minLength
       ) {
         return setButtonDisabled(true);
       }
       return setButtonDisabled(false);
     };
-    userOK(email, senha);
+    userCanLogin(email, senha);
   }, [email, senha]);
 
   return (
@@ -45,13 +45,14 @@ const Login = (props) => {
       <div className="content">
         <h1>Trybe</h1>
 
-        <form onSubmit={ handleSubmit }>
+        <form className="form-login" onSubmit={ handleSubmit }>
           <input
             type="email"
             placeholder="Digite seu email"
-            testid="email-input"
+            data-testid="email-input"
             value={ email }
             onChange={ (event) => setEmail(event.target.value) }
+            required
           />
           <input
             type="password"
@@ -60,6 +61,7 @@ const Login = (props) => {
             minLength="6"
             value={ senha }
             onChange={ (event) => setSenha(event.target.value) }
+            required
           />
           <button
             className="disabled"
@@ -67,7 +69,6 @@ const Login = (props) => {
             disabled={ buttonDisabled }
           >
             Entrar
-
           </button>
         </form>
       </div>

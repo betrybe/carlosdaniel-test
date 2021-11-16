@@ -1,9 +1,20 @@
 form {
-  background: #262B33;
   padding: 30px 20px;
 }
+
+form.create {
+  background-color: #262B33;
+  color: #ddd;
+
+}
+
+form.edit {
+  background-color: #0CA269;
+  color: #262B33;
+}
+
+
 form label {
-  color: #eee;
   font-size: 16px;
   padding-right: 8px;
 }

@@ -10,12 +10,15 @@ const INITIAL_STATE = {
     method: '',
     tag: '',
     exchangeRates: [],
-    isEditable: false,
   },
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case 'CLEAR_FORM':
+    return {
+      ...state, form: INITIAL_STATE.form,
+    };
   case 'CHANGE_FORM':
     return {
       ...state, form: action.payload,

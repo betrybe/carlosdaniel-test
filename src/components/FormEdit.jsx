@@ -1,49 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 import { AddNewExpense, handleForm, saveEditExpense } from '../actions/index';
 
 import './Form.css';
 
-const Form = ({ wallet, handleForm, AddNewExpense,saveEditExpense, editable }) => {
-  const FormSubmit = (event) => {
-    event.preventDefault();
-
-    AddNewExpense();
-  };
+const FormEdit = (props) => {
   const FormEdit = (event) => {
     event.preventDefault();
 
-    saveEditExpense();
-    editable[1](false)
+    props.saveEditExpense();
   };
-  console.log(editable)
-  const handleButton =()=>{
-    if(editable[0] === true){
-      return (
-        <button type="submit"> Editar despesa </button>
-      )
-    }else{
-      return (
-        <button type="submit">Adicionar despesa</button>
-      )
-    }
-  }
 
   return (
     <form
-      onSubmit={ editable[0] === true ? FormEdit : FormSubmit }
-      className={ editable[0] === true ? "edit" : "create" }
+      onSubmit={ FormEdit }
+      className="edit"
     >
+
       <label htmlFor="value">
         valor:
         <input
           type="number"
           id="value"
-          value={ wallet.form?.value }
-          onChange={ handleForm }
-          data-testid="value-input"
+          value={ props.wallet.form.value }
+          onChange={ props.handleForm }
         />
       </label>
 
@@ -52,9 +33,8 @@ const Form = ({ wallet, handleForm, AddNewExpense,saveEditExpense, editable }) =
         <input
           type="text"
           id="description"
-          value={ wallet.form?.description }
-          onChange={ handleForm }
-          data-testid="description-input"
+          value={ props.wallet.form.description }
+          onChange={ props.handleForm }
         />
       </label>
 
@@ -62,13 +42,12 @@ const Form = ({ wallet, handleForm, AddNewExpense,saveEditExpense, editable }) =
         Moeda:
         <select
           id="currency"
-          value={ wallet.form?.currency }
-          onChange={ handleForm }
-          data-testid="currency-input"
+          value={ props.wallet.form.currency }
+          onChange={ props.handleForm }
         >
           <option value="">Selecione uma Moeda</option>
           {
-            Object.entries(wallet.currencies).map((moeda, index) => (
+            Object.entries(props.wallet.currencies).map((moeda, index) => (
               <option key={ index } value={ moeda[0] }>{moeda[0]}</option>
             ))
           }
@@ -79,9 +58,9 @@ const Form = ({ wallet, handleForm, AddNewExpense,saveEditExpense, editable }) =
         Método de pagamento:
         <select
           id="method"
-          value={ wallet.form?.method }
-          onChange={ handleForm }
-          data-testid="method-input"
+          value={ props.wallet.form.method }
+          onChange={ props.handleForm }
+
         >
           <option value="">Selecione um Método de pagamento</option>
           <option value="Dinheiro">Dinheiro</option>
@@ -94,9 +73,9 @@ const Form = ({ wallet, handleForm, AddNewExpense,saveEditExpense, editable }) =
         Tag:
         <select
           id="tag"
-          value={ wallet.form?.tag }
-          onChange={ handleForm }
-          data-testid="tag-input"
+          value={ props.wallet.form.tag }
+          onChange={ props.handleForm }
+
         >
           <option value="">Selecione uma Tag</option>
           <option value="Alimentação">Alimentação</option>
@@ -107,10 +86,7 @@ const Form = ({ wallet, handleForm, AddNewExpense,saveEditExpense, editable }) =
         </select>
       </label>
 
-      {
-        handleButton()
-      }
-
+      <button type="submit">Editar despesa</button>
     </form>
 
   );
@@ -126,5 +102,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   saveEditExpense,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
-
+export default connect(mapStateToProps, mapDispatchToProps)(FormEdit);
