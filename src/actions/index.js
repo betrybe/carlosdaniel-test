@@ -52,7 +52,6 @@ export const removeExpense = (list, id) => (dispatch) => {
 
   newList.splice(itemID, 1);
 
-  console.log(newList);
   dispatch({
     type: 'CHANGE_EXPENSES',
     payload: newList,

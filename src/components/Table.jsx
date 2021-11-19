@@ -30,59 +30,56 @@ const Table = ({ setEditable }) => {
       </thead>
       <tbody>
         {
-          wallet.expenses.map((expense, index) => {
-            console.log(expense);
-            return (
-              (
-                <tr key={ `${expense.id}-${index}` }>
-                  <td>{expense.description}</td>
-                  <td>{expense.tag}</td>
-                  <td>{expense.method}</td>
-                  <td>
-                    {`${Number(expense.value)}`}
-                  </td>
-                  <td>
-                    {expense.exchangeRates[expense.currency]
-                      .name}
-                  </td>
-                  <td>
-                    {parseFloat(expense.exchangeRates[expense.currency].ask)
-                      .toFixed(2)}
-                  </td>
-                  <td>
-                    {
-                      ((+expense.exchangeRates[expense.currency].ask) * expense.value)
-                        .toFixed(2)
-                    }
-                  </td>
-                  <td>Real</td>
-                  <td>
-                    <button
-                      className="edit"
-                      type="button"
-                      onClick={ () => {
-                        dispatch(editExpense(expense.id));
-                        setEditable(true);
-                      } }
-                      data-testid="edit-btn"
-                    >
-                      <img src={ editIcon } alt="Icon Edit" />
-                    </button>
-                    <button
-                      className="remove"
-                      type="button"
-                      onClick={ () => {
-                        dispatch(removeExpense(wallet.expenses, expense.id));
-                      } }
-                      data-testid="delete-btn"
-                    >
-                      <img src={ trashIcon } alt="Icon Remove" />
-                    </button>
-                  </td>
-                </tr>
-              )
-            );
-          })
+          wallet.expenses.map((expense, index) => (
+            (
+              <tr key={ `${expense.id}-${index}` }>
+                <td>{expense.description}</td>
+                <td>{expense.tag}</td>
+                <td>{expense.method}</td>
+                <td>
+                  {`${Number(expense.value)}`}
+                </td>
+                <td>
+                  {expense.exchangeRates[expense.currency]
+                    .name}
+                </td>
+                <td>
+                  {parseFloat(expense.exchangeRates[expense.currency].ask)
+                    .toFixed(2)}
+                </td>
+                <td>
+                  {
+                    ((+expense.exchangeRates[expense.currency].ask) * expense.value)
+                      .toFixed(2)
+                  }
+                </td>
+                <td>Real</td>
+                <td>
+                  <button
+                    className="edit"
+                    type="button"
+                    onClick={ () => {
+                      dispatch(editExpense(expense.id));
+                      setEditable(true);
+                    } }
+                    data-testid="edit-btn"
+                  >
+                    <img src={ editIcon } alt="Icon Edit" />
+                  </button>
+                  <button
+                    className="remove"
+                    type="button"
+                    onClick={ () => {
+                      dispatch(removeExpense(wallet.expenses, expense.id));
+                    } }
+                    data-testid="delete-btn"
+                  >
+                    <img src={ trashIcon } alt="Icon Remove" />
+                  </button>
+                </td>
+              </tr>
+            )
+          ))
         }
       </tbody>
     </table>

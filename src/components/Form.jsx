@@ -24,7 +24,15 @@ const Form = ({ editable, setEditable }) => {
     dispatch(searchCurrencies());
   }, [dispatch]);
 
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState({
+    id: null,
+    value: 0,
+    description: '',
+    currency: '',
+    method: '',
+    tag: '',
+    exchangeRates: [],
+  });
   useEffect(() => {
     if (editable) {
       wallet.expenses.map((expense, index) => {
@@ -34,7 +42,15 @@ const Form = ({ editable, setEditable }) => {
         return '';
       });
     } else {
-      setForm(initialForm);
+      setForm({
+        id: null,
+        value: 0,
+        description: '',
+        currency: '',
+        method: '',
+        tag: '',
+        exchangeRates: [],
+      });
     }
   }, [editable, wallet.expenseIdEdit, wallet.expenses]);
 
