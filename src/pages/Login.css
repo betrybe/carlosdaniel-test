@@ -1,0 +1,70 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 40px;
+  border: 4px solid #29292e;
+  border-radius: 8px;
+}
+
+.container .content h1 {
+  font-size: 56px;
+  text-transform: uppercase;
+  color: #03A86C;
+  margin-bottom:50px;
+}
+
+.container .content > .form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container .content > .form-login input,
+.container .content > .form-login button
+ {
+  width: 350px;
+  padding: 12px;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.container .content > .form-login input {
+  border: 1px solid #29292e;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 16px;
+}
+.container .content > .form-login input:focus {
+  outline: 2px solid #03A86C;
+  border: none;
+}
+
+.container .content > .form-login button {
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #73C585;
+  border: 1px solid rgba(41, 41, 46, 0.5);
+
+  transition: .2s ease-in-out;
+}
+
+.container .content > .form-login button:not(:disabled):hover {
+  background-color: #218738;
+}
+
+.container .content > .form-login button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

@@ -1,0 +1,70 @@
+table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+  flex: 1;
+}
+
+table thead{
+ padding: 15px;
+ background-color: #31393E;
+}
+
+table thead tr{
+  display: grid;
+  align-items: center;
+  grid-template-columns:repeat(9, 1fr);
+  color: #ddd;
+}
+
+table tbody tr{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  grid-template-columns:repeat(9, 1fr);
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(41, 41, 46, 0.4);
+}
+
+table tbody tr td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  max-width: 100;
+  overflow: hidden;
+  word-wrap: keep-all;
+  white-space: wrap;
+}
+
+table tbody tr td button {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+}
+table tbody tr td .edit ,
+table tbody tr td .remove {
+  border: 1px solid rgba(41, 41, 46, 0.5);
+  margin: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+}
+
+table tbody tr td .edit{
+ background-color: #FCBF06;
+ color: #29292e;
+}
+
+table tbody tr td .remove {
+  background-color: #C92130;
+  color: #ddd;
+ }
+
+table tbody tr td .edit:hover ,
+table tbody tr td .remove:hover {
+  filter: brightness(0.8);
+}
