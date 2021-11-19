@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { AddNewExpense, saveEditExpense } from '../actions/index';
+import { AddNewExpense, saveEditExpense, searchCurrencies } from '../actions/index';
 
 import './Form.css';
 
@@ -20,8 +20,11 @@ const Form = ({ editable, setEditable }) => {
     exchangeRates: [],
   };
 
-  const [form, setForm] = useState(initialForm);
+  useEffect(() => {
+    dispatch(searchCurrencies());
+  }, [dispatch]);
 
+  const [form, setForm] = useState(initialForm);
   useEffect(() => {
     if (editable) {
       wallet.expenses.map((expense, index) => {
@@ -54,31 +57,18 @@ const Form = ({ editable, setEditable }) => {
     setEditable(false);
   };
 
-  const handleButton = () => {
-    if (editable === true) {
-      return (
-        <button type="submit">
-          Editar despesa
-        </button>
-      );
-    }
-    return (
-      <button type="submit">Adicionar despesa</button>
-    );
-  };
-
   return (
     <form
-      onSubmit={ editable === true ? FormEdit : FormSubmit }
-      className={ editable === true ? 'edit' : 'create' }
+      onSubmit={editable ? FormEdit : FormSubmit}
+      className={editable ? 'edit' : 'create'}
     >
       <label htmlFor="value">
         valor:
         <input
           type="number"
           id="value"
-          value={ form.value }
-          onChange={ handleForm }
+          value={form.value}
+          onChange={handleForm}
           data-testid="value-input"
         />
       </label>
@@ -88,8 +78,8 @@ const Form = ({ editable, setEditable }) => {
         <input
           type="text"
           id="description"
-          value={ form.description }
-          onChange={ handleForm }
+          value={form.description}
+          onChange={handleForm}
           data-testid="description-input"
         />
       </label>
@@ -98,13 +88,13 @@ const Form = ({ editable, setEditable }) => {
         Moeda:
         <select
           id="currency"
-          value={ form.currency }
-          onChange={ handleForm }
+          value={form.currency}
+          onChange={handleForm}
           data-testid="currency-input"
         >
           {
-            Object.entries(wallet.currencies).map((moeda, index) => (
-              <option key={ index } value={ moeda[0] }>{moeda[0]}</option>
+            wallet.currencies.map((moeda, index) => (
+              <option key={index} value={moeda}>{moeda}</option>
             ))
           }
         </select>
@@ -114,8 +104,8 @@ const Form = ({ editable, setEditable }) => {
         Método de pagamento:
         <select
           id="method"
-          value={ form.method }
-          onChange={ handleForm }
+          value={form.method}
+          onChange={handleForm}
           data-testid="method-input"
         >
           <option value="">Selecione um Método de pagamento</option>
@@ -129,8 +119,8 @@ const Form = ({ editable, setEditable }) => {
         Tag:
         <select
           id="tag"
-          value={ form.tag }
-          onChange={ handleForm }
+          value={form.tag}
+          onChange={handleForm}
           data-testid="tag-input"
         >
           <option value="">Selecione uma Tag</option>
@@ -141,9 +131,9 @@ const Form = ({ editable, setEditable }) => {
           <option value="Saúde">Saúde</option>
         </select>
       </label>
-      {
-        handleButton()
-      }
+      <button type="submit">
+        {!editable ? 'Adicionar despesa' : 'Editar despesas'}
+      </button>
     </form>
 
   );

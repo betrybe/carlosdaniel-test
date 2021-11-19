@@ -19,20 +19,18 @@ export const getIdExpenses = () => (dispatch, getState) => {
   });
 };
 
-export const clearForm = () => (dispatch) => {
-  dispatch({
-    type: 'CLEAR_FORM',
-  });
-};
-
 export const AddNewExpense = (form) => (dispatch, getState) => {
   const state = getState();
 
   fetch('https://economia.awesomeapi.com.br/json/all')
     .then((res) => res.json())
     .then((res) => {
-      delete res.USDT;
-      delete res.DOGE;
+
+      // for (let letter in res) {
+      //   console.log(res[letter].name.replace('/Real Brasileiro', ''));
+      //   res[letter].name = res[letter].name.replace('/Real Brasileiro', '')
+      // }
+
       const newState = {
         ...form, id: state.wallet.currentId, exchangeRates: res,
       };
@@ -47,23 +45,24 @@ export const searchCurrencies = () => (dispatch) => {
   fetch('https://economia.awesomeapi.com.br/json/all')
     .then((res) => res.json())
     .then((res) => {
-      delete res.USDT;
-      delete res.DOGE;
-
+      const currencies = Object.keys(res).filter((code) => code !== 'USDT');
       dispatch({
         type: 'SEARCH_CURRENCIES',
-        payload: res,
+        payload: currencies,
       });
     });
 };
 
-export const removeExpense = (id) => (dispatch, getState) => {
-  const state = getState();
-  const newArray = state.wallet.expenses.filter((expense) => expense.id !== id);
+export const removeExpense = (list, id) => (dispatch, getState) => {
+  const indexItem = list.findIndex((current) => current.id === id);
+  const newList = [...list]
 
+  newList.splice(indexItem, 1);
+
+  console.log(newList)
   dispatch({
-    type: 'CHANGE_EXPENSES',
-    payload: newArray,
+    type: 'REMOVE_EXPENSE',
+    payload: newList,
   });
 };
 
