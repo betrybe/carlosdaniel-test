@@ -31,10 +31,10 @@ const Table = ({ setEditable }) => {
       <tbody>
         {
           wallet.expenses.map((expense, index) => {
-            console.log(expense)
+            console.log(expense);
             return (
               (
-                <tr key={`${expense.id}-${index}`}>
+                <tr key={ `${expense.id}-${index}` }>
                   <td>{expense.description}</td>
                   <td>{expense.tag}</td>
                   <td>{expense.method}</td>
@@ -60,28 +60,28 @@ const Table = ({ setEditable }) => {
                     <button
                       className="edit"
                       type="button"
-                      onClick={() => {
+                      onClick={ () => {
                         dispatch(editExpense(expense.id));
                         setEditable(true);
-                      }}
+                      } }
                       data-testid="edit-btn"
                     >
-                      <img src={editIcon} alt="Icon Edit" />
+                      <img src={ editIcon } alt="Icon Edit" />
                     </button>
                     <button
                       className="remove"
                       type="button"
-                      onClick={() => {
-                        dispatch(removeExpense(wallet.expenses, expense.id))
-                      }}
+                      onClick={ () => {
+                        dispatch(removeExpense(wallet.expenses, expense.id));
+                      } }
                       data-testid="delete-btn"
                     >
-                      <img src={trashIcon} alt="Icon Remove" />
+                      <img src={ trashIcon } alt="Icon Remove" />
                     </button>
                   </td>
                 </tr>
               )
-            )
+            );
           })
         }
       </tbody>

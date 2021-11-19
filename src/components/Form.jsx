@@ -59,16 +59,16 @@ const Form = ({ editable, setEditable }) => {
 
   return (
     <form
-      onSubmit={editable ? FormEdit : FormSubmit}
-      className={editable ? 'edit' : 'create'}
+      onSubmit={ editable ? FormEdit : FormSubmit }
+      className={ editable ? 'edit' : 'create' }
     >
       <label htmlFor="value">
         valor:
         <input
           type="number"
           id="value"
-          value={form.value}
-          onChange={handleForm}
+          value={ form.value }
+          onChange={ handleForm }
           data-testid="value-input"
         />
       </label>
@@ -78,8 +78,8 @@ const Form = ({ editable, setEditable }) => {
         <input
           type="text"
           id="description"
-          value={form.description}
-          onChange={handleForm}
+          value={ form.description }
+          onChange={ handleForm }
           data-testid="description-input"
         />
       </label>
@@ -88,13 +88,13 @@ const Form = ({ editable, setEditable }) => {
         Moeda:
         <select
           id="currency"
-          value={form.currency}
-          onChange={handleForm}
+          value={ form.currency }
+          onChange={ handleForm }
           data-testid="currency-input"
         >
           {
             wallet.currencies.map((moeda, index) => (
-              <option key={index} value={moeda}>{moeda}</option>
+              <option key={ index } value={ moeda }>{moeda}</option>
             ))
           }
         </select>
@@ -104,8 +104,8 @@ const Form = ({ editable, setEditable }) => {
         Método de pagamento:
         <select
           id="method"
-          value={form.method}
-          onChange={handleForm}
+          value={ form.method }
+          onChange={ handleForm }
           data-testid="method-input"
         >
           <option value="">Selecione um Método de pagamento</option>
@@ -119,8 +119,8 @@ const Form = ({ editable, setEditable }) => {
         Tag:
         <select
           id="tag"
-          value={form.tag}
-          onChange={handleForm}
+          value={ form.tag }
+          onChange={ handleForm }
           data-testid="tag-input"
         >
           <option value="">Selecione uma Tag</option>
@@ -135,7 +135,6 @@ const Form = ({ editable, setEditable }) => {
         {!editable ? 'Adicionar despesa' : 'Editar despesas'}
       </button>
     </form>
-
   );
 };
 

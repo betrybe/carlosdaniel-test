@@ -9,8 +9,8 @@ const Wallet = () => {
     <>
       <Header />
       <main>
-        <Form editable={editable} setEditable={setEditable} />
-        <Table setEditable={setEditable} />
+        <Form editable={ editable } setEditable={ setEditable } />
+        <Table setEditable={ setEditable } />
       </main>
     </>
   );

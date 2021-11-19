@@ -1,4 +1,3 @@
-// Coloque aqui suas actions
 // User Actions
 export const changeUserEmail = (description) => ({
   type: 'CHANGE_USER_EMAIL',
@@ -25,12 +24,6 @@ export const AddNewExpense = (form) => (dispatch, getState) => {
   fetch('https://economia.awesomeapi.com.br/json/all')
     .then((res) => res.json())
     .then((res) => {
-
-      // for (let letter in res) {
-      //   console.log(res[letter].name.replace('/Real Brasileiro', ''));
-      //   res[letter].name = res[letter].name.replace('/Real Brasileiro', '')
-      // }
-
       const newState = {
         ...form, id: state.wallet.currentId, exchangeRates: res,
       };
@@ -53,15 +46,15 @@ export const searchCurrencies = () => (dispatch) => {
     });
 };
 
-export const removeExpense = (list, id) => (dispatch, getState) => {
-  const indexItem = list.findIndex((current) => current.id === id);
-  const newList = [...list]
+export const removeExpense = (list, id) => (dispatch) => {
+  const itemID = list.findIndex((current) => current.id === id);
+  const newList = [...list];
 
-  newList.splice(indexItem, 1);
+  newList.splice(itemID, 1);
 
-  console.log(newList)
+  console.log(newList);
   dispatch({
-    type: 'REMOVE_EXPENSE',
+    type: 'CHANGE_EXPENSES',
     payload: newList,
   });
 };
