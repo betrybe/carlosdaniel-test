@@ -5,34 +5,27 @@ import { AddNewExpense, saveEditExpense, searchCurrencies } from '../actions/ind
 
 import './Form.css';
 
+const INITIAL_STATE = {
+  id: null,
+  value: 0,
+  description: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
+  exchangeRates: [],
+};
+
 const Form = ({ editable, setEditable }) => {
   const dispatch = useDispatch();
   const { wallet } = useSelector((state) => ({
     wallet: state.wallet,
   }));
-  const initialForm = {
-    id: null,
-    value: 0,
-    description: '',
-    currency: '',
-    method: '',
-    tag: '',
-    exchangeRates: [],
-  };
 
   useEffect(() => {
     dispatch(searchCurrencies());
   }, [dispatch]);
 
-  const [form, setForm] = useState({
-    id: null,
-    value: 0,
-    description: '',
-    currency: '',
-    method: '',
-    tag: '',
-    exchangeRates: [],
-  });
+  const [form, setForm] = useState(INITIAL_STATE);
   useEffect(() => {
     if (editable) {
       wallet.expenses.map((expense, index) => {
@@ -42,15 +35,7 @@ const Form = ({ editable, setEditable }) => {
         return '';
       });
     } else {
-      setForm({
-        id: null,
-        value: 0,
-        description: '',
-        currency: '',
-        method: '',
-        tag: '',
-        exchangeRates: [],
-      });
+      setForm(INITIAL_STATE);
     }
   }, [editable, wallet.expenseIdEdit, wallet.expenses]);
 
@@ -63,13 +48,13 @@ const Form = ({ editable, setEditable }) => {
     event.preventDefault();
 
     dispatch(AddNewExpense(form));
-    setForm(initialForm);
+    setForm(INITIAL_STATE);
   };
   const FormEdit = (event) => {
     event.preventDefault();
 
     dispatch(saveEditExpense(form));
-    setForm(initialForm);
+    setForm(INITIAL_STATE);
     setEditable(false);
   };
 
@@ -110,7 +95,7 @@ const Form = ({ editable, setEditable }) => {
         >
           {
             wallet.currencies.map((moeda, index) => (
-              <option key={ index } value={ moeda }>{moeda}</option>
+              <option key={ index } value={ moeda }>{ moeda }</option>
             ))
           }
         </select>
@@ -124,7 +109,6 @@ const Form = ({ editable, setEditable }) => {
           onChange={ handleForm }
           data-testid="method-input"
         >
-          <option value="">Selecione um Método de pagamento</option>
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
           <option value="Cartão de débito">Cartão de débito</option>
@@ -139,7 +123,6 @@ const Form = ({ editable, setEditable }) => {
           onChange={ handleForm }
           data-testid="tag-input"
         >
-          <option value="">Selecione uma Tag</option>
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -148,7 +131,7 @@ const Form = ({ editable, setEditable }) => {
         </select>
       </label>
       <button type="submit">
-        {!editable ? 'Adicionar despesa' : 'Editar despesas'}
+        { !editable ? 'Adicionar despesa' : 'Editar despesas' }
       </button>
     </form>
   );
